@@ -1,0 +1,2 @@
+muse
+-e git://github.com/paultag/python-fluidsynth.git#egg=fluidsynth
