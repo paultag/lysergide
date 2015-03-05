@@ -1,6 +1,7 @@
 (require lysergide.language)
 
-(import [random [randint]]
+(import asyncio
+        [random [randint choice]]
         [muse.tone [Tone]]
         [fluidsynth [AsyncSynth]])
 
@@ -12,7 +13,8 @@
 (piano.start)
 
 
-(defn play [synth duration keys]
+(defn play [synth duration keys align]
+    (yield-from (asyncio.sleep (* align (l/time 0.5 seconds))))
     (yield-from
       (piano.chord 0
         (map (fn [x] (.to-midi x)) (map (fn [x] (Tone.from-string x)) keys))
@@ -28,15 +30,16 @@
     x))
 
 
-;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;
 
 (l/main
   (l/defn foo [beat seq]
-    (go (play piano 2 [(first seq)]))
+    (go (play piano 2 [(first seq)] 0))
+    (go (play piano 2 [(choice '[E2 D2 C2])] 0.5))
     (recurse/beat (shift seq)))
   (yield-from (foo 0 '[G2 G2 A3 B3])))
-
 
 ;;;;;;;;;;;;;;;;;;
 (piano.shutdown)
