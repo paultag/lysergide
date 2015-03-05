@@ -30,14 +30,19 @@
     x))
 
 
-
-
 ;;;;;;;;;;;;;;;;;;
 
 (l/main
+  (def *root* ['E2])
+
   (l/defn foo [beat seq]
     (go (play piano 2 [(first seq)] 0))
-    (go (play piano 2 [(choice '[E2 D2 C2])] 0.5))
+    (go (play piano 2 *root* 0.5))
+
+    (if (= (% beat 8) 0)
+      (setv (get *root* 0)
+            (choice (list (filter (fn [x] (!= x *root*)) '[E2 D2 C2])))))
+
     (recurse/beat (shift seq)))
   (yield-from (foo 0 '[G2 G2 A3 B3])))
 
