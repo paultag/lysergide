@@ -38,13 +38,13 @@
             [IIm7  (.chord (get scale 1) MINOR_SEVENTH)]
             [V7    (.chord (get scale 4) DOMINANT_SEVENTH)]
             [Imaj7 (.chord (get scale 0) MAJOR_SEVENTH)]]
-      (go (piano 5 IIm7 0))
-      (go (piano 5 V7 1))
-      (go (piano 5 Imaj7 2))))
+      (go (piano 5 IIm7 0)) (go (piano 5 IIm7 1)) (go (piano 5 IIm7 1.5))
+      (go (piano 5 V7 4)) (go (piano 5 V7 5)) (go (piano 5 V7 5.5))
+      (go (piano 5 Imaj7 8)) (go (piano 5 Imaj7 9)) (go (piano 5 Imaj7 9.5))))
   
   (l/defn get-jazzy [beat iter]
     (go (groove (next iter)))
-    (recurse/beats 4 iter))
+    (recurse/beats 12 iter))
 
   (yield-from (get-jazzy 0 (.acending (MajorScale (Tone.from-string 'C2))))))
 
