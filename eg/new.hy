@@ -30,6 +30,13 @@
     x))
 
 
+(defn pick/next [els current]
+  (choice (list (filter
+    (fn [x] (!= x current))
+    els))))
+
+
+
 ;;;;;;;;;;;;;;;;;;
 
 (l/main
@@ -41,7 +48,7 @@
 
     (if (= (% beat 8) 0)
       (setv (get *root* 0)
-            (choice (list (filter (fn [x] (!= x *root*)) '[E2 D2 C2])))))
+        (pick/next '[E2 D2 C2] (get *root* 0))))
 
     (recurse/beat (shift seq)))
   (yield-from (foo 0 '[G2 G2 A3 B3])))
