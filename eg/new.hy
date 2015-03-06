@@ -36,12 +36,18 @@
     els))))
 
 
+(import [muse.scales.major [MajorScale]])
+
+(defn compute/intervals [progression intervals]
+  (let [[acending (list (take 12 (.acending progression)))]
+        [sequence (map (fn [x] (get acending x)) intervals)]]
+    (list sequence)))
+
 
 ;;;;;;;;;;;;;;;;;;
 
 (l/main
-  (def *root* ['E2])
-
+  (def *root* '[E2])
   (l/defn foo [beat seq]
     (go (play piano 2 [(first seq)] 0))
     (go (play piano 2 *root* 0.5))
