@@ -6,6 +6,10 @@
         [muse.chords [MAJOR MAJOR_SEVENTH]])
 
 
+(defmacro/g! l/let [sig &rest body]
+  `(yield-from (with-decorator asyncio.coroutine (let [~@sig] ~@body))))
+
+
 (defmacro/g! l/fn [sig &rest body]
   "Create a lysergide function"
   `(with-decorator asyncio.coroutine
