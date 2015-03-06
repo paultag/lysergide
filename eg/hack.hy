@@ -41,21 +41,23 @@
             [V7    (V.chord DOMINANT_SEVENTH)]
             [Imaj7 (I.chord  MAJOR_SEVENTH)]]
 
-      (go (piano IIm7 0))
-      (go (piano IIm7 1))
-      (go (piano IIm7 1.5))
+      (go (piano [II] 0))
 
-      (go (piano V7 4))
-      (go (piano V7 5))
-      (go (piano V7 5.5))
+      (go (piano IIm7 2))
+      (go (piano IIm7 3))
+      (go (piano IIm7 3.5))
 
-      (go (piano Imaj7 8))
-      (go (piano Imaj7 9))
-      (go (piano Imaj7 9.5))))
+      (go (piano V7 6))
+      (go (piano V7 7))
+      (go (piano V7 7.5))
+
+      (go (piano Imaj7 10))
+      (go (piano Imaj7 11))
+      (go (piano Imaj7 11.5))))
   
   (l/defn get-jazzy [beat iter]
     (go (groove (next iter)))
-    (recurse/beats 12 iter))
+    (recurse/beats 14 iter))
 
   (yield-from (get-jazzy 0 (.acending (MajorScale (Tone.from-string 'C2))))))
 
