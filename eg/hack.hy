@@ -15,7 +15,7 @@
 
 ; IIm7 V7 Imaj7
 
-(defn piano [duration keys align]
+(defn piano [keys align]
     (yield-from (asyncio.sleep (* align (l/time 0.5 seconds))))
     (yield-from
       (*piano.chord 0
@@ -41,17 +41,17 @@
             [V7    (V.chord DOMINANT_SEVENTH)]
             [Imaj7 (I.chord  MAJOR_SEVENTH)]]
 
-      (go (piano 5 IIm7 0))
-      (go (piano 5 IIm7 1))
-      (go (piano 5 IIm7 1.5))
+      (go (piano IIm7 0))
+      (go (piano IIm7 1))
+      (go (piano IIm7 1.5))
 
-      (go (piano 5 V7 4))
-      (go (piano 5 V7 5))
-      (go (piano 5 V7 5.5))
+      (go (piano V7 4))
+      (go (piano V7 5))
+      (go (piano V7 5.5))
 
-      (go (piano 5 Imaj7 8))
-      (go (piano 5 Imaj7 9))
-      (go (piano 5 Imaj7 9.5))))
+      (go (piano Imaj7 8))
+      (go (piano Imaj7 9))
+      (go (piano Imaj7 9.5))))
   
   (l/defn get-jazzy [beat iter]
     (go (groove (next iter)))
