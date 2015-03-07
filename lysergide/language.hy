@@ -25,6 +25,10 @@
         ~@body)))
 
 
+(defmacro/g! l/fn% [sig &rest body]
+  `(do (metro*.register (l/fn [~@sig] ~@body))))
+
+
 (defmacro/g! l/recurse [when &rest args]
   "temporally recurse in a lysergide function"
   `(.call_later loop* ~when (fn [] (asyncio.async (*self* ~@args)))))
@@ -45,7 +49,9 @@
 
 
 (defmacro l/main [&rest body]
-  `(do (import asyncio)
-       (let [[loop* (.get-event-loop asyncio)]]
+  `(do (import asyncio [lysergide.metro [Metronome]])
+       (let [[loop* (.get-event-loop asyncio)]
+             [metro* (Metronome 110 4)]]
          (asyncio.async ((l/fn [] ~@body)))
+         (asyncio.async (metro*))
          (.run-forever loop*))))
