@@ -29,6 +29,10 @@
   `(do (metro*.register (l/fn [~@sig] ~@body))))
 
 
+(defmacro/g! l/on [beats &rest body]
+  `(l/fn% [beat] (if (in beat [~@beats]) (do ~@body))))
+
+
 (defmacro/g! l/recurse [when &rest args]
   "temporally recurse in a lysergide function"
   `(.call_later loop* ~when (fn [] (asyncio.async (*self* ~@args)))))
